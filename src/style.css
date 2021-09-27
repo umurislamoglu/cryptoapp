@@ -1,0 +1,75 @@
+body{
+  background-image: linear-gradient(to bottom, #e0eafc, #dce7fa, #d8e4f8, #d3e1f5, #cfdef3);
+  height:100vh
+}
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+  }
+  
+  .chart-container {
+    width: 80%;
+    height: 90%;
+  }
+  .card{
+    margin-top:2rem;
+    padding: 10px;
+    box-shadow: 5px 10px 18px #888888;
+    background: rgba( 255, 255, 255, 0.55 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 6.5px );
+    -webkit-backdrop-filter: blur( 6.5px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+  
+  }
+.cardheader{
+  padding-left: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.cardfooter{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+  .btn{
+    transition: 1s;
+  }
+
+.carousel-item{
+  height: 32rem;
+}
+
+
+.carddiv:hover {
+	opacity: 1;
+	-webkit-animation: flash 1.5s;
+	animation: flash 1.5s;
+}
+@-webkit-keyframes flash {
+	0% {
+		opacity: .4;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes flash {
+	0% {
+		opacity: .4;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.widget{
+  border-radius: 15px;
+  width: 16rem;
+  height: 8rem;
+background: linear-gradient(145deg, #fdffff, #d4dae2);
+box-shadow:  13px 13px 39px #bdc2c9,
+             -13px -13px 39px #ffffff;
+}
