@@ -85,8 +85,19 @@ const Dashboard = () => {
         .get(
           "https://newsapi.org/v2/everything?q=cryptocurrency&apiKey=30582ee0f42e4b48b68da929be86d4e2"
         )
-        .then((res) => setNews(res.data.articles.slice(0, 3)));
-
+        .then((res) =>
+          setNews([
+            res.data.articles[
+              Math.floor(Math.random() * res.data.articles.length)
+            ],
+            res.data.articles[
+              Math.floor(Math.random() * res.data.articles.length)
+            ],
+            res.data.articles[
+              Math.floor(Math.random() * res.data.articles.length)
+            ],
+          ])
+        );
     newsApiCall();
 
     apiCall();
@@ -101,10 +112,28 @@ const Dashboard = () => {
       });
   }, [clickedId]);
 
-  const handleSelect = (e) => {
-    if (e.target.value === "EUR") {
+  // const handleSelect = (e) => {
+  //   if (e.target.value === "EUR") {
+  //     setCurrencies(eurCurrencies);
+  //   } else if (e.target.value === "USD") {
+  //     setCurrencies(usdCurrencies);
+  //   } else {
+  //     setCurrencies(gbpCurrencies);
+  //   }
+  // };
+
+  const handleClick = (e) => {
+    let parent = e.target.parentElement;
+    let currencyName = e.target.id;
+    [...parent.children].forEach((child) => {
+      child.className =
+        "currencybutton d-flex justify-content-center align-items-center";
+    });
+    e.target.className =
+      "activecurrency currencybutton d-flex justify-content-center align-items-center";
+    if (currencyName === "EUR") {
       setCurrencies(eurCurrencies);
-    } else if (e.target.value === "USD") {
+    } else if (currencyName === "USD") {
       setCurrencies(usdCurrencies);
     } else {
       setCurrencies(gbpCurrencies);
@@ -112,109 +141,133 @@ const Dashboard = () => {
   };
   return (
     <div>
-      {news.length && (
-        <div
-          id="carouselExampleCaptions"
-          className="carousel slide"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-indicators">
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="0"
-              className="active"
-              aria-current="true"
-              aria-label="Slide 1"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="1"
-              aria-label="Slide 2"
-            ></button>
-            <button
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide-to="2"
-              aria-label="Slide 3"
-            ></button>
-          </div>
-          <div className="carousel-inner">
-            <div className="carousel-item active">
-              <a href={news[0].url} target="_blank">
-                <img
-                  src={news[0].urlToImage}
-                  className="d-block w-100 opacity-75"
-                  alt="..."
-                />
-              </a>
-
-              <div className="carousel-caption d-none d-md-block">
-                <h5>{news[0].title}</h5>
-                <p>{news[0].description}</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <a href={news[1].url} target="_blank">
-                <img
-                  src={news[1].urlToImage}
-                  className="d-block w-100 opacity-75"
-                  alt="..."
-                />
-              </a>
-              <div className="carousel-caption d-none d-md-block">
-                <h5>{news[1].title}</h5>
-                <p>{news[1].description}</p>
-              </div>
-            </div>
-            <div className="carousel-item">
-              <a href={news[2].url} target="_blank">
-                <img
-                  src={news[2].urlToImage}
-                  className="d-block w-100 opacity-75"
-                  alt="..."
-                />
-              </a>
-              <div className="carousel-caption d-none d-md-block">
-                <h5>{news[2].title}</h5>
-                <p>{news[2].description}</p>
-              </div>
-            </div>
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div>
-      )}
       <div className="container mh-100">
+        {news.length && (
+          <div
+            id="carouselExampleCaptions"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-indicators">
+              <button
+                type="button"
+                data-bs-target="#carouselExampleCaptions"
+                data-bs-slide-to="0"
+                className="active"
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleCaptions"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#carouselExampleCaptions"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"
+              ></button>
+            </div>
+            <div className="carousel-inner">
+              <div className="carousel-item active">
+                <a href={news[0].url} target="_blank">
+                  <img
+                    src={news[0].urlToImage}
+                    className="d-block w-100 opacity-75 carousel-image"
+                    alt="..."
+                  />
+                </a>
+
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>{news[0].title}</h5>
+                  <p>{news[0].description}</p>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <a href={news[1].url} target="_blank">
+                  <img
+                    src={news[1].urlToImage}
+                    className="d-block w-100 opacity-75 carousel-image"
+                    alt="..."
+                  />
+                </a>
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>{news[1].title}</h5>
+                  <p>{news[1].description}</p>
+                </div>
+              </div>
+              <div className="carousel-item">
+                <a href={news[2].url} target="_blank">
+                  <img
+                    src={news[2].urlToImage}
+                    className="d-block w-100 opacity-75 carousel-image"
+                    alt="..."
+                  />
+                </a>
+                <div className="carousel-caption d-none d-md-block">
+                  <h5>{news[2].title}</h5>
+                  <p>{news[2].description}</p>
+                </div>
+              </div>
+            </div>
+            <button
+              className="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="prev"
+            >
+              <span
+                className="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Previous</span>
+            </button>
+            <button
+              className="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleCaptions"
+              data-bs-slide="next"
+            >
+              <span
+                className="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+              <span className="visually-hidden">Next</span>
+            </button>
+          </div>
+        )}
         <div className="row mt-3">
           <div
             className="col-3 w-25 mt-3  overflow-auto "
             style={{ height: "40rem" }}
           >
-            <select
+            <div className="d-flex flex-row justify-content-evenly p-2">
+              <div
+                className=" currencybutton d-flex justify-content-center align-items-center"
+                id="EUR"
+                onClick={handleClick}
+              >
+            EUR
+              </div>
+              <div
+                className="currencybutton d-flex justify-content-center align-items-center"
+                id="USD"
+                onClick={handleClick}
+              >
+               USD
+              
+              </div>
+              <div
+                className="currencybutton d-flex justify-content-center align-items-center"
+                id="GBP"
+                onClick={handleClick}
+              >
+              GBP
+              </div>
+            </div>
+            {/* <select
               className="form-select mt-3 w-75 mx-auto"
               onChange={handleSelect}
             >
@@ -222,7 +275,7 @@ const Dashboard = () => {
               <option value="EUR">EUR</option>
               <option value="USD">USD</option>
               <option value="GBP">GBP</option>
-            </select>
+            </select> */}
             {currencies.map((curr, idx) => {
               return (
                 <div
@@ -241,7 +294,7 @@ const Dashboard = () => {
           </div>
 
           <div className="col-9  w-75">
-            <div className="card w-100 h-100 d-flex flex-column">
+            <div className="card w-100  d-flex flex-column">
               <h3 className="align-self-center mb-5">24h Stats of currency</h3>
               <div className="d-flex flex-column">
                 <div className="d-flex flex-row justify-content-evenly mt-5">
@@ -249,28 +302,33 @@ const Dashboard = () => {
                     title="Opening Value:"
                     data={parseFloat(clickedData.open).toFixed(2)}
                     color={"#5DB0C2"}
+                    icon={"bi bi-bookmark-check"}
                   ></Widget>
                   <Widget
                     title="Lowest Value:"
                     data={parseFloat(clickedData.low).toFixed(2)}
                     color={"#FF4C38"}
+                    icon={"bi bi-arrow-down-circle-fill"}
                   ></Widget>
                   <Widget
                     title="Highest Value:"
                     data={parseFloat(clickedData.high).toFixed(2)}
                     color={"#E6B414"}
+                    icon={"bi bi-arrow-up-circle-fill"}
                   ></Widget>
                 </div>
-                <div className="d-flex flex-row justify-content-evenly mt-5">
+                <div className="d-flex flex-row justify-content-evenly mt-5 mb-5">
                   <Widget
                     title="Last Value:"
                     data={parseFloat(clickedData.last).toFixed(2)}
                     color={"#98B913"}
+                    icon={"bi bi-bookmark-star"}
                   ></Widget>
                   <Widget
                     title="Volume for 30 days:"
                     data={parseFloat(clickedData.volume_30day).toFixed(2)}
                     color={"#C769B7"}
+                    icon={"bi bi-archive-fill"}
                   ></Widget>
                 </div>
               </div>

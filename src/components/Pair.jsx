@@ -126,7 +126,7 @@ const Pair = (props) => {
 
   return (
     <div className="container">
-      <div className="card"  > 
+      <div className="card h-75 mb-5"  > 
         <div className=" cardheader fw-normal fs-2 text d-flex flex-row justify-content-between px-5" style={{ "border":"none"}}>
           <div className="d-flex flex-column">
           <span>{productId}</span>
